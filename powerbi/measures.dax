@@ -1,0 +1,33 @@
+Total Revenue =
+SUM ( fact_daily_country_sales[revenue] )
+
+Completed Orders =
+SUM ( fact_daily_country_sales[completed_orders] )
+
+Units Sold =
+SUM ( fact_daily_country_sales[units_sold] )
+
+Average Order Value =
+DIVIDE ( [Total Revenue], [Completed Orders] )
+
+Revenue per Unit =
+DIVIDE ( [Total Revenue], [Units Sold] )
+
+Revenue MoM % =
+VAR CurrentRevenue = [Total Revenue]
+VAR PreviousRevenue =
+    CALCULATE (
+        [Total Revenue],
+        DATEADD ( dim_date[date], -1, MONTH )
+    )
+RETURN
+    DIVIDE ( CurrentRevenue - PreviousRevenue, PreviousRevenue )
+
+Quality Status =
+IF ( [Rejected Rows] = 0, "Healthy", "Review required" )
+
+Rejected Rows =
+SUM ( fact_pipeline_quality[rejected_rows] )
+
+Last Successful Load =
+MAX ( fact_pipeline_quality[loaded_at] )

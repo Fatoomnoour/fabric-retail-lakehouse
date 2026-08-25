@@ -19,7 +19,8 @@ The official Microsoft overview describes Fabric as an end-to-end analytics plat
 | Data Factory thinking | `pipelines/retail_daily_pipeline.json` with parameters and activity dependencies |
 | Warehouse serving | `sql/gold_views.sql` with business-facing views |
 | Data quality | `src/quality.py` and tests for schema, uniqueness, and revenue reconciliation |
-| Local reproducibility | `python -m src.pipeline` using DuckDB and Parquet |
+| Local reproducibility | `python -m src.pipeline` using Pandas and Parquet |
+| Power BI serving | `powerbi/DIRECT_LAKE_SETUP.md` and `powerbi/measures.dax` |
 | DP-700 preparation | Documentation connects each artifact to ingestion, transformation, orchestration, and serving concepts |
 
 ## Architecture
@@ -49,6 +50,10 @@ ruff check .
 ```
 
 The local run creates Parquet outputs and a quality report. No Azure subscription, secret, or paid service is required for the fallback run.
+
+## Power BI Direct Lake
+
+The `powerbi/` folder contains the practical setup guide and DAX measures for a recruiter-ready Power BI report. In a real Fabric workspace, create the semantic model from the Gold Delta table and choose **Direct Lake on OneLake**. The report design includes Executive Pulse, Market Detail, and Data Reliability pages. The repository does not claim that a tenant or report was deployed; it provides the exact artifacts and steps needed to reproduce that connection.
 
 ## How to open it in Microsoft Fabric
 
