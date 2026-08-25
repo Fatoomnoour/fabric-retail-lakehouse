@@ -6,3 +6,5 @@ __pycache__/
 data/orders.csv
 data/warehouse/
 *.parquet
+
+*.egg-info/

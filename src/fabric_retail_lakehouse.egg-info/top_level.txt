@@ -1,3 +1,0 @@
-generate_sample
-pipeline
-quality
