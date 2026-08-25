@@ -1,0 +1,9 @@
+flowchart LR
+    A[CSV or API orders] --> B[Bronze Files in OneLake]
+    B --> C[Fabric Notebook 01]
+    C --> D[Silver Delta table]
+    D --> E[Fabric Notebook 02]
+    E --> F[Gold Delta table]
+    F --> G[SQL endpoint and Power BI]
+    C --> H[Quality checks]
+    H -->|invalid| I[Quarantine report]

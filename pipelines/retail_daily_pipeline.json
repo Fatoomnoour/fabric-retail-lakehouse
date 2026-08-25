@@ -1,0 +1,33 @@
+{
+  "name": "retail_daily_pipeline",
+  "description": "Fabric-ready Bronze to Silver to Gold orchestration design",
+  "parameters": {
+    "run_date": "@pipeline().parameters.run_date",
+    "source_path": "Files/bronze/orders/"
+  },
+  "activities": [
+    {
+      "name": "IngestOrdersToBronze",
+      "type": "CopyData",
+      "dependsOn": [],
+      "target": "Files/bronze/orders/"
+    },
+    {
+      "name": "TransformBronzeToSilver",
+      "type": "Notebook",
+      "dependsOn": ["IngestOrdersToBronze"],
+      "notebook": "01_bronze_to_silver"
+    },
+    {
+      "name": "BuildGoldMetrics",
+      "type": "Notebook",
+      "dependsOn": ["TransformBronzeToSilver"],
+      "notebook": "02_silver_to_gold"
+    },
+    {
+      "name": "RefreshSemanticModel",
+      "type": "SemanticModelRefresh",
+      "dependsOn": ["BuildGoldMetrics"]
+    }
+  ]
+}
